@@ -1,0 +1,6 @@
+--> Number of decks : 6
+--> Dealer hits on 16 or lower
+--> No doubling after splitting
+--> No insurance allowed
+--> Blackjack payout is 3 : 2
+--> Reshuffling at 25% cards or less left
