@@ -1,0 +1,29 @@
+#include <iostream>
+#include "../include/country.hpp"
+
+Country::Country(const string &name, int population) : name(name), r(0), i(0), k(0){
+    s = population;
+}
+
+void Country::recover(int p){
+    int total = i * p / 100;
+    i -= total;
+    r += total;
+}
+
+void Country::infect(int p){
+    int total = s * p / 100;
+    s -= total;
+    i += total;
+}
+
+void Country::kill(int p){
+    int total = i * p / 100;
+    i -= total;
+    k += total;
+}
+
+int main(){
+    Country RO("Romania", 19000000);
+    cout << RO.get_name();
+}
