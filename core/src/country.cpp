@@ -22,8 +22,3 @@ void Country::kill(int p){
     i -= total;
     k += total;
 }
-
-int main(){
-    Country RO("Romania", 19000000);
-    cout << RO.get_name();
-}
