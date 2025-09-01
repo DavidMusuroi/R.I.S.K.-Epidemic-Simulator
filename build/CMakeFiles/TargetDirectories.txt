@@ -1,0 +1,15 @@
+/mnt/c/R.I.S.K. Simulator/build/CMakeFiles/core.dir
+/mnt/c/R.I.S.K. Simulator/build/CMakeFiles/RISK_sim.dir
+/mnt/c/R.I.S.K. Simulator/build/CMakeFiles/edit_cache.dir
+/mnt/c/R.I.S.K. Simulator/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/R.I.S.K. Simulator/build/CMakeFiles/list_install_components.dir
+/mnt/c/R.I.S.K. Simulator/build/CMakeFiles/install.dir
+/mnt/c/R.I.S.K. Simulator/build/CMakeFiles/install/local.dir
+/mnt/c/R.I.S.K. Simulator/build/CMakeFiles/install/strip.dir
+/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-build/CMakeFiles/fmt.dir
+/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-build/CMakeFiles/edit_cache.dir
+/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-build/CMakeFiles/rebuild_cache.dir
+/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-build/CMakeFiles/list_install_components.dir
+/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-build/CMakeFiles/install.dir
+/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-build/CMakeFiles/install/local.dir
+/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-build/CMakeFiles/install/strip.dir
