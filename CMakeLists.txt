@@ -16,15 +16,8 @@ FetchContent_MakeAvailable(fmt)
 add_library(core core/src/country.cpp)
 target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/core/include)
 
-#add_subdirectory(asm)
-#add_subdirectory(memory)
-
-#add_library(sim SHARED)
-#target_link_libraries(sim PRIVATE asm core memory PUBLIC fmt::fmt)
-#target_include_directories(sim PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/core/include)
-#target_include_directories(sim PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/memory)
-#set_target_properties(sim PROPERTIES POSITION_INDEPENDENT_CODE ON OUTPUT_NAME "sim")
-
 add_executable(RISK_sim main.cpp)
 target_link_libraries(RISK_sim PRIVATE core PUBLIC fmt::fmt)
 target_include_directories(RISK_sim PRIVATE ${core_include_dir})
+
+configure_file(${CMAKE_SOURCE_DIR}/data/countries.csv ${CMAKE_BINARY_DIR}/countries.csv COPYONLY)
