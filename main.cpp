@@ -9,26 +9,17 @@ using namespace std;
 using namespace fmt;
 
 int main(){
-    /**
-    string name;
-    int population;
-    print("Enter the country name: ");
-    getline(cin, name);
-    print("Enter the number of people living here: ");
-    cin >> population;
-    Country c(name, population);
-    print("The country's name is {}, and has a total of {} people\n", c.get_name(), c.get_s());
-    **/
     string name, line, choice, tmp;
     int population, nr_countries = 0, i;
     Country **countries = new Country*[2];
     bool okay = false;
-    ifstream csv_file("../data/countries.csv");
+    ifstream csv_countries("../data/countries.csv");
+    ifstream csv_RO_counties("../data/RO_counties.csv");
     // Header line
-    getline(csv_file, line);
+    getline(csv_countries, line);
     print("The countries you can choose from are:\n");
     // While we can read from the csv
-    while(getline(csv_file, line)){
+    while(getline(csv_countries, line)){
         // Create a stringstream object to separate the columns
         stringstream ss(line);
         getline(ss, name, ',');
@@ -40,7 +31,7 @@ int main(){
         nr_countries++;
     }
     while(okay == false){
-        print("Enter which country you would like to choose from\n");
+        print("Enter which country you would like to play as:\n");
         getline(cin, choice);
         for(i = 0; i < nr_countries && okay == false; i++){
             if(countries[i]->get_name() == choice){
@@ -48,9 +39,13 @@ int main(){
             }
         }
         if(okay == false){
-            print("ERR! Incorect Country!\n");
+            print("ERROR! Incorect Country! The countries you can choose from are:\n");
+            for(i = 0; i < nr_countries; i++){
+                print("{}\n", countries[i]->get_name());
+            }
         }
     }
     i--;
     print("You went for {}\n", countries[i]->get_name());
+    
 }
