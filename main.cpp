@@ -4,6 +4,7 @@
 #include <string>
 #include <fmt/core.h>
 #include "core/include/country.hpp"
+#include "core/include/region.hpp"
 
 using namespace std;
 using namespace fmt;
