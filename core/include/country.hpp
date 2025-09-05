@@ -6,11 +6,11 @@ using namespace std;
 
 class Country{
     private:
-        const string name;
+        const string name, abbreviation;
         int r, i, s, k;
 
     public:
-        Country(const string &name, int population);
+        Country(const string &name, int population, const string &abbreviation);
 
         void recover(int p);
         void infect(int p);
@@ -30,5 +30,8 @@ class Country{
         }
         const string& get_name() const{
             return name;
+        }
+        const string& get_abbreviation() const{
+            return abbreviation;
         }
 };
