@@ -1,5 +1,5 @@
 #DISCLAIMER : The population was taken from wikipedia's 2021 statistics : https://en.wikipedia.org/wiki/List_of_Romanian_counties_by_population
-name,population,abbreviation,modifier1,modifier2
+name,abbreviation,population,modifier1,modifier2
 Alba,AB,326000,mountainous,mine
 Arad,AR,410000,airport,river
 Arges,AG,570000,mountainous,dam
@@ -15,6 +15,7 @@ Caras-Severin,CS,246000,airfield,mine
 Calarasi,CL,285000,airfield,river
 Cluj,CJ,680000,mountainous,airport
 Constanta,CT,655000,port,airport
+Covasna,CV,200000,river,mountainous
 Dambovita,DB,480000,mountainous,river
 Dolj,DJ,600000,airport,river
 Galati,GL,497000,river,port
