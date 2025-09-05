@@ -9,7 +9,7 @@ using namespace std;
 using namespace fmt;
 
 int main(){
-    string name, line, choice, tmp;
+    string name, line, choice, tmp, abbv;
     int population, nr_countries = 0, i;
     Country **countries = new Country*[2];
     bool okay = false;
@@ -24,9 +24,10 @@ int main(){
         stringstream ss(line);
         getline(ss, name, ',');
         getline(ss, tmp, ',');
+        getline(ss, abbv);
         // Transform the population to integer and initialize the countries
         population = stoi(tmp);
-        countries[nr_countries] = new Country(name, population);
+        countries[nr_countries] = new Country(name, population, abbv);
         print("{}\n", countries[nr_countries]->get_name());
         nr_countries++;
     }
@@ -39,13 +40,12 @@ int main(){
             }
         }
         if(okay == false){
-            print("ERROR! Incorect Country! The countries you can choose from are:\n");
+            print("ERROR! Incorect country! The countries you can choose from are:\n");
             for(i = 0; i < nr_countries; i++){
                 print("{}\n", countries[i]->get_name());
             }
         }
     }
     i--;
-    print("You went for {}\n", countries[i]->get_name());
-    
+    print("You went for {}, which has the abbreviation: {}\n", countries[i]->get_name(), countries[i]->get_abbreviation());
 }
