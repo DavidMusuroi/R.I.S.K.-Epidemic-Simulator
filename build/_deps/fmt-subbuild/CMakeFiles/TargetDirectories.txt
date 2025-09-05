@@ -1,3 +1,0 @@
-/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-subbuild/CMakeFiles/fmt-populate.dir
-/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-subbuild/CMakeFiles/edit_cache.dir
-/mnt/c/R.I.S.K. Simulator/build/_deps/fmt-subbuild/CMakeFiles/rebuild_cache.dir

@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/RISK_sim.dir/main.cpp.o -o RISK_sim  libcore.a _deps/fmt-build/libfmt.a 
