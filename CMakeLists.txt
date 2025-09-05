@@ -21,3 +21,4 @@ target_link_libraries(RISK_sim PRIVATE core PUBLIC fmt::fmt)
 target_include_directories(RISK_sim PRIVATE ${core_include_dir})
 
 configure_file(${CMAKE_SOURCE_DIR}/data/countries.csv ${CMAKE_BINARY_DIR}/countries.csv COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/data/RO_counties.csv ${CMAKE_BINARY_DIR}/RO_counties.csv COPYONLY)
