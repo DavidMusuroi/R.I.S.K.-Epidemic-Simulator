@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Remove old build and add new build
+# Remove the old build and add the new build
 rm -rf build/
 mkdir build
 cd build/
@@ -22,5 +22,5 @@ if ! cmake --build .; then
     exit 1
 fi
 
-# Run the program
+# Run program
 ./RISK_sim
