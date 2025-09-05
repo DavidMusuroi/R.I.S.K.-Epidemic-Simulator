@@ -1,4 +1,4 @@
-name, population
-Romania, 200000000
-USA, 340000000
-Austria, 9200000
+name, population, abbreviation
+Romania,200000000,RO
+USA,340000000,US
+Austria,9200000,AT
