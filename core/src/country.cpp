@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../include/country.hpp"
 
 Country::Country(const string &name, int population, const string &abbreviation) : name(name), abbreviation(abbreviation), r(0), i(0), k(0){
