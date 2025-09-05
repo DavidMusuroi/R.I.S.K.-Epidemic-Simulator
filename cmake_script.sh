@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-# Remove the old build and add the new build
+# Remove the old build, add the new build and normalize timestamps
 find . -type f -exec touch {} +
+sleep 1
 rm -rf build/
 mkdir build
 cd build/
