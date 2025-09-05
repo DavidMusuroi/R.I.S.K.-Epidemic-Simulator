@@ -2,6 +2,7 @@
 set -e
 
 # Remove the old build and add the new build
+find . -type f -exec touch {} +
 rm -rf build/
 mkdir build
 cd build/
