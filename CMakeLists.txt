@@ -13,8 +13,10 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(fmt)
 
-add_library(core core/src/country.cpp)
+add_library(core core/src/country.cpp core/src/region.cpp)
 target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/core/include)
+target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/core/include)
+
 
 add_executable(RISK_sim main.cpp)
 target_link_libraries(RISK_sim PRIVATE core PUBLIC fmt::fmt)
