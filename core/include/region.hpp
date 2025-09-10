@@ -1,11 +1,13 @@
 #pragma once
 #include <string>
 #include "country.hpp"
+#include <cstring>
 using namespace std;
 
 class Region{
     private:
-        char **modifiers;
+        char **modifiers, **neighbors;
+        int nr_neighbors;
         Country area;
         double i_rate, r_rate, m_rate;
 
@@ -47,6 +49,17 @@ class Region{
         void set_m_rate(double new_m_rate){
             m_rate = new_m_rate;
         }
+        void set_neighbor(const char *neighbor){
+            if(neighbors == NULL){
+                neighbors = new char*[10];
+                nr_neighbors = 0;
+                for(int i = 0; i < 10; i++){
+                    neighbors[i] = new char[4];
+                }
+            }
+            strcpy(neighbors[nr_neighbors], neighbor);
+            nr_neighbors++;
+        }
         const string& get_name() const{
             return area.get_name();
         }
@@ -55,5 +68,11 @@ class Region{
         }
         const char* get_modifier(int i) const{
             return modifiers[i];
+        }
+        const char* get_neighbor(int i) const{
+            return neighbors[i];
+        }
+        int get_nr_neighbors() const{
+            return nr_neighbors;
         }
 };
