@@ -11,15 +11,17 @@ using namespace fmt;
 
 int main(){
     string name, line, choice, tmp, abbv;
-    int country_population, nr_countries = 0, country_index, region_index, nr_modifiers, nr_regions = 0, i, j;
-    double i_rate, r_rate, m_rate, tmp_i_rate, tmp_r_rate, tmp_m_rate;
+    int country_population, nr_countries = 0, country_index, region_index, nr_modifiers, nr_regions = 0, i;
+    double i_rate, r_rate, m_rate;
     Country **countries = new Country*[2];
-    bool okay = false, stop = false;
+    bool okay = false;
     ifstream csv_countries("../data/countries.csv");
     ifstream csv_RO_counties("../data/RO_counties.csv");
+    ifstream csv_RO_borders("../data/RO_borders.csv");
     // Header line
     getline(csv_countries, line);
     print("The countries you can choose from are:\n");
+
 
     // Reading the countries from the CSV
     while(getline(csv_countries, line)){
@@ -40,6 +42,7 @@ int main(){
 
     nr_countries--;
 
+
     // Choosing your country
     while(okay == false){
         print("Enter which country you would like to play as:\n");
@@ -58,8 +61,9 @@ int main(){
     }
 
     country_index--;
-
     print("You went for {}, which has the abbreviation {} and the index {}\n", countries[country_index]->get_name(), countries[country_index]->get_abbreviation(), country_index);
+
+
 
     if(countries[country_index]->get_name() == "Romania"){
         int county_population;
@@ -70,6 +74,7 @@ int main(){
         getline(csv_RO_counties, line);
         getline(csv_RO_counties, line);
         print("The counties you can choose from are:\n");
+
 
         // Reading the counties from the CSV
         while(getline(csv_RO_counties, line)){
@@ -90,7 +95,7 @@ int main(){
             modifiers[1] = strdup(modifier2.c_str());
             regions[nr_regions] = new Region(name, county_population, abbv, modifiers);
             if(nr_regions != 41){
-                print("{}, ", regions[nr_regions]->get_name());
+                print("{}\n", regions[nr_regions]->get_name());
                 nr_regions++;
             }
             else{
@@ -98,7 +103,30 @@ int main(){
             }
         }
 
+
+        getline(csv_RO_borders, line);
+
+
+        // Reading the neighbors from the CSV
+        while(getline(csv_RO_borders, line)){
+            stringstream ss(line);
+            getline(ss, tmp, ' ');
+            for(i = 0; i <= nr_regions; i++){
+                if(regions[i]->get_abbreviation() == tmp){
+                    break;
+                }
+            }
+            while(getline(ss, tmp, ' ')){
+                if (!tmp.empty() && tmp.back() == '\r') {
+                    tmp.pop_back();
+                }
+                    regions[i]->set_neighbor(tmp.c_str());
+            }
+        }
+
+
         okay = false;
+
 
         //Choosing your county
         while(okay == false){
@@ -120,44 +148,38 @@ int main(){
         print("You went for {}, which has the abbreviation {}, the index {}, and the modifiers: {} and {}\n", regions[region_index]->get_name(), regions[region_index]->get_abbreviation(), region_index, regions[region_index]->get_modifier(0), regions[region_index]->get_modifier(1));
         print("What initial percentages would you like the infection, recovery and mortality rates to be?\n");
         cin >> i_rate >> r_rate >> m_rate;
-        getline(cin, choice);
-        print("{} {} {} Alright, let the simulation begin!\n", i_rate, r_rate, m_rate);
         regions[region_index]->set_i_rate(i_rate);
         regions[region_index]->set_r_rate(r_rate);
         regions[region_index]->set_m_rate(m_rate);
-        while(stop == false){
-            stop = true;
+        regions[region_index]->update(i_rate, r_rate, m_rate, "starting region");
+        for(i = 0; i < nr_modifiers; i++){
+            regions[region_index]->update(i_rate, r_rate, m_rate, regions[region_index]->get_modifier(i));
+        }
+        getline(cin, choice);
+        print("Alright, let the simulation begin!\n");
+        while(true){
             print("Would you like to continue (C) or quit (Q) the simulation? ");
             getline(cin, choice);
             while(choice != "C" && choice != "Q"){
-                print("ERROR! Incorrect input!\n");
+                print("ERROR! Incorrect input! You must choose to continue (C) or quit (Q) the simulation.\n");
                 getline(cin, choice);
             }
-            if(choice == "C"){
-                stop = false;
-            }
-            else if(choice == "Q"){
+            if(choice == "Q"){
+                print("Simulation ended!\n");
                 break;
             }
-            regions[region_index]->update(i_rate, r_rate, m_rate, "starting region");
-            for(j = 0; j < nr_modifiers; j++){
-                    regions[region_index]->update(i_rate, r_rate, m_rate, regions[region_index]->get_modifier(j));
-            }
             regions[region_index]->update(i_rate, r_rate, m_rate, "end");
-            i_rate = regions[region_index]->get_i_rate();
-            r_rate = regions[region_index]->get_r_rate();
-            m_rate = regions[region_index]->get_m_rate();
             print("Would you like to see the stats for your starting region? (Y) or (N) : ");
             getline(cin, choice);
-            print("\n");
+            while(choice != "Y" && choice != "N"){
+                print("ERROR! Unknown character! Choose between yes (Y) or no (N).\n");
+                getline(cin, choice);
+            }
             if(choice == "Y"){
                 print("R.I.S.K. results :\n{} {} {} {}\n", regions[region_index]->get_r(), regions[region_index]->get_i(), regions[region_index]->get_s(), regions[region_index]->get_k());
             }
             else if(choice == "N"){
                 print("Alright, let's continue.\n");
-            }
-            else{
-                print("ERROR! Unknown character!\n");
             }
         }
     }
