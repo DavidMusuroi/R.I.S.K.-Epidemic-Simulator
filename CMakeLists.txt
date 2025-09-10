@@ -23,3 +23,4 @@ target_include_directories(RISK_sim PRIVATE ${core_include_dir})
 
 configure_file(${CMAKE_SOURCE_DIR}/data/countries.csv ${CMAKE_BINARY_DIR}/countries.csv COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/data/RO_counties.csv ${CMAKE_BINARY_DIR}/RO_counties.csv COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/data/RO_borders.csv ${CMAKE_BINARY_DIR}/RO_borders.csv COPYONLY)
