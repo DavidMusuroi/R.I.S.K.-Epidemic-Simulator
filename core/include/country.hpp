@@ -10,9 +10,9 @@ class Country{
     public:
         Country(const string &name, int population, const string &abbreviation);
 
-        void recover(int p);
-        void infect(int p);
-        void kill(int p);
+        void recover(double p);
+        void infect(double p);
+        void kill(double p);
 
         int get_r() const{
             return r;
