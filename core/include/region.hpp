@@ -14,10 +14,10 @@ class Region{
     public:
         Region(const string &name, int population, const string &abbreviation, char **modifiers);
 
-        void recover(int p);
-        void infect(int p);
-        void kill(int p);
-        void update(double &i_rate, double &r_rate, double &m_rate, const char *modifier);
+        void recover(double p);
+        void infect(double p);
+        void kill(double p);
+        void update(const char *modifier);
 
         int get_r() const{
             return area.get_r();
@@ -48,6 +48,15 @@ class Region{
         }
         void set_m_rate(double new_m_rate){
             m_rate = new_m_rate;
+        }
+        void add_i_rate(double old_i_rate){
+            i_rate += old_i_rate;
+        }
+        void add_r_rate(double old_r_rate){
+            r_rate += old_r_rate;
+        }
+        void add_m_rate(double old_m_rate){
+            m_rate += old_m_rate;
         }
         void set_neighbor(const char *neighbor){
             if(neighbors == NULL){
