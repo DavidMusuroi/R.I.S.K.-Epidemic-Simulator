@@ -4,7 +4,7 @@ Country::Country(const string &name, int population, const string &abbreviation)
     s = population;
 }
 
-void Country::recover(int p){
+void Country::recover(double p){
     int total = i * p / 100;
     if(total > i){
         total = i;
@@ -13,7 +13,7 @@ void Country::recover(int p){
     r += total;
 }
 
-void Country::infect(int p){
+void Country::infect(double p){
     int total = s * p / 100;
     if(total > s){
         total = s;
@@ -22,7 +22,7 @@ void Country::infect(int p){
     i += total;
 }
 
-void Country::kill(int p){
+void Country::kill(double p){
     int total = i * p / 100;
     if(total > i){
         total = i;
