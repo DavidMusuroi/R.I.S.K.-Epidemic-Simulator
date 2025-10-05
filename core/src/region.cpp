@@ -1,21 +1,20 @@
 #include "../include/region.hpp"
-#include <cstring>
 
 Region::Region(const string &name, int population, const string &abbreviation, char **modifiers) : modifiers(modifiers), neighbors(nullptr), nr_neighbors(0), area(name, population, abbreviation), i_rate(0), r_rate(0), m_rate(0){}
 
-void Region::recover(int p){
+void Region::recover(double p){
     area.recover(p);
 }
 
-void Region::infect(int p){
+void Region::infect(double p){
     area.infect(p);
 }
 
-void Region::kill(int p){
+void Region::kill(double p){
     area.kill(p);
 }
 
-void Region::update(double &i_rate, double &r_rate, double &m_rate, const char *modifier){
+void Region::update(const char *modifier){
     if(strcmp(modifier, "starting region") == 0){
         i_rate *= 1.5;
     }
