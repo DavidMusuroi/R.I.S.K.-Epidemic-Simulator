@@ -1,6 +1,6 @@
 #include "../include/region.hpp"
 
-Region::Region(const string &name, int population, const string &abbreviation, char **modifiers) : modifiers(modifiers), neighbors(nullptr), nr_neighbors(0), area(name, population, abbreviation), i_rate(0), r_rate(0), m_rate(0){}
+Region::Region(const string &name, int population, const string &abbreviation, char **modifiers) : modifiers(modifiers), neighbors(nullptr), nr_neighbors(0), area(name, population, abbreviation), r_rate(0), i_rate(0), m_rate(0){}
 
 void Region::recover(double p){
     area.recover(p);
