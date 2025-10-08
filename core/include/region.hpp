@@ -9,7 +9,7 @@ class Region{
         char **modifiers, **neighbors;
         int nr_neighbors;
         Country area;
-        double i_rate, r_rate, m_rate;
+        double r_rate, i_rate, m_rate;
 
     public:
         Region(const string &name, int population, const string &abbreviation, char **modifiers);
