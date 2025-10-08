@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Remove the old build, add the new build
+# Remove the old build and add the new build
 rm -rf build/
 mkdir build
 cd build/
@@ -27,5 +27,8 @@ if ! cmake --build . --clean-first; then
     exit 1
 fi
 
-# Run program
-./RISK_sim
+# Forced QT to use X11
+export QT_QPA_PLATFORM=xcb
+
+#Run GUI
+python3 ../gui/gui.py
