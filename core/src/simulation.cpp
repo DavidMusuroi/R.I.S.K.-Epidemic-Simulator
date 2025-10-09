@@ -167,5 +167,5 @@ string Simulation::get_stats(const string& region_name){
             return format("Stats :\nR : {}\nI : {}\nS : {}\nK : {}\nInfection rate : {}\n", regions[i]->get_r(), regions[i]->get_i(), regions[i]->get_s(), regions[i]->get_k(), regions[i]->get_i_rate());
         }
     }
-    return "No region of this name found!";
+    return format("No such region found!");
 }
