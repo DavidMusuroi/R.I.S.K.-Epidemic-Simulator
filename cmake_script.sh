@@ -31,4 +31,5 @@ fi
 export QT_QPA_PLATFORM=xcb
 
 #Run GUI
+#./RISK_sim
 python3 ../gui/gui.py
