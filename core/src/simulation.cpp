@@ -113,12 +113,18 @@ int Simulation::choose_county(const string& county_name){
     return region_start_index;
 }
 
-void Simulation::update_starting_region(double recovery, double infection, double mortality, int region_start_index){
+void Simulation::update_starting_region(double recovery, double infection, double mortality, const string& region_abbrv){
     r_rate = recovery;
     i_rate = infection;
     m_rate = mortality;
-    regions[region_start_index]->set_i_rate(i_rate);
+    int region_start_index = 0;
+    for(; region_start_index <= nr_regions; region_start_index++){
+        if(regions[region_start_index]->get_abbreviation() == region_abbrv){
+            break;
+        }
+    }
     regions[region_start_index]->set_r_rate(r_rate);
+    regions[region_start_index]->set_i_rate(i_rate);
     regions[region_start_index]->set_m_rate(m_rate);
     regions[region_start_index]->update("starting region");
     for(int i = 0; i < nr_modifiers; i++){
@@ -130,34 +136,32 @@ void Simulation::update_starting_region(double recovery, double infection, doubl
 void Simulation::next_day(){
     int i, j, index;
     double buffer[nr_regions + 1] = {0};
-    while(true){
-        for(i = 0; i <= nr_regions; i++){
-            if(regions[i]->get_i() != 0){
-                int nr_neighbors = regions[i]->get_nr_neighbors();
-                for(j = 0; j < nr_neighbors; j++){
-                    string tmp = regions[i]->get_neighbor(j);
-                    for(index = 0; index <= nr_regions; index++){
-                        if(tmp == regions[index]->get_abbreviation()){
-                                break;
-                        }
+    for(i = 0; i <= nr_regions; i++){
+        if(regions[i]->get_i() != 0){
+            int nr_neighbors = regions[i]->get_nr_neighbors();
+            for(j = 0; j < nr_neighbors; j++){
+                string tmp = regions[i]->get_neighbor(j);
+                for(index = 0; index <= nr_regions; index++){
+                    if(tmp == regions[index]->get_abbreviation()){
+                            break;
                     }
-                    buffer[index] += (double) (regions[i]->get_i_rate() / nr_neighbors);
                 }
+                buffer[index] += (double) (regions[i]->get_i_rate() * 0.02 / nr_neighbors);
             }
         }
+    }
 
-        for(i = 0; i <= nr_regions; i++){
-            if(buffer[i] > 0){
-                regions[i]->add_i_rate(buffer[i]);
-                regions[i]->add_r_rate(buffer[i] * 4 / 10);
-                regions[i]->add_m_rate(buffer[i] * 3 / 5);
-                buffer[i] = 0;
-            }
-            for(j = 0; j < nr_modifiers; j++){
-                regions[i]->update(regions[i]->get_modifier(j));
-            }
-            regions[i]->update("end");
+    for(i = 0; i <= nr_regions; i++){
+        if(buffer[i] > 0){
+            regions[i]->add_i_rate(buffer[i]);
+            regions[i]->add_r_rate(buffer[i] * 0.1);
+            regions[i]->add_m_rate(buffer[i] * 0.05);
+            buffer[i] = 0;
         }
+        for(j = 0; j < nr_modifiers; j++){
+            regions[i]->update(regions[i]->get_modifier(j));
+        }
+        regions[i]->update("end");
     }
 }
 
