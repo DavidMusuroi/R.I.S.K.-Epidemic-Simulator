@@ -17,7 +17,7 @@ class Simulation{
         int choose_country(const string& country_name);
         void read_Romania_counties(const string& counties_path, const string& borders_path);
         int choose_county(const string& county_name);
-        void update_starting_region(double recovery, double infection, double mortality, int region_start_index);
+        void update_starting_region(double recovery, double infection, double mortality, const string& region_abbrv);
         void next_day();
         string get_stats(const string& region_name);
         void set_modifier(const string& country_name){
