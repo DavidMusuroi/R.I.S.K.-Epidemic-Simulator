@@ -28,9 +28,12 @@ class RISKSimGUI(QWidget):
         self.region_coords = {}
         self.region_dropdown = None
         self.is_starting_region = False
+        self.selected_region = None
+        self.print_days = None
+        self.nr_days_passed = 0
         # Next Day Button
         self.next_day_btn = QPushButton("Next Day")
-        #self.next_day_btn.clicked.connect(self.next_day)
+        self.next_day_btn.clicked.connect(self.next_day)
 
         #self.next_month_btn = QPushButton("Next Month")
         #self.next_year_btn = QPushButton("Next Year")
@@ -52,6 +55,7 @@ class RISKSimGUI(QWidget):
         padding: 8px;
         font-family: Consolas;
         """)
+        self.print_days = QLabel("Days passed : 0")
         # Top Layout
         top_layout = QHBoxLayout()
         top_layout.addWidget(self.country_dropdown)
@@ -70,9 +74,10 @@ class RISKSimGUI(QWidget):
         #main_layout.addWidget(self.map_label)
         main_layout.addWidget(self.starting_region_name)
         main_layout.addWidget(self.stat_region)
+        main_layout.addWidget(self.print_days)
         #main_layout.addWidget(self.stats_label)
         self.setLayout(main_layout)
-        self.resize(700, 600)
+        self.resize(800, 700)
 
     def load_country_and_regions(self, country):
         if country == "Romania":
@@ -137,13 +142,22 @@ class RISKSimGUI(QWidget):
             return
         if reply == QMessageBox.StandardButton.Yes and self.is_starting_region == False:
             self.starting_region_name.setText(f"Starting region: {selected_region}")
-            self.stat_region.setText(f"You clicked on {selected_region}. Showing stats...")
-            self.starting_region = True
-        elif reply == QMessageBox.StandardButton.Yes and self.is_starting_region == True:
-            self.stat_region.setText(f"You clicked on {selected_region}. Showing stats...")
+            self.is_starting_region = True
+            self.sim.update_starting_region(1, 5, 2, selected_region)
+        elif reply == QMessageBox.StandardButton.No:
             return
+        self.stat_region.setText(f"You clicked on {selected_region}. Showing stats...")
         stats = self.sim.get_stats(selected_region)
         self.stats_label.setText(stats)
+        self.selected_region = selected_region
+
+    def next_day(self):
+        self.sim.next_day()
+        self.nr_days_passed += 1
+        self.print_days.setText(f"Days passed : {self.nr_days_passed}")
+        if self.selected_region != None:
+            stats = self.sim.get_stats(self.selected_region)
+            self.stats_label.setText(stats)
 
 
 class ClickableMap(QLabel):
