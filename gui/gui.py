@@ -22,6 +22,7 @@ class RISKSimGUI(QWidget):
 
         # Initializing the Map
         self.map_label = ClickableMap()
+        self.map_label.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
         self.map_label.clicked.connect(self.load_starting_region)
 
         # Initializing the Coords
@@ -110,9 +111,14 @@ class RISKSimGUI(QWidget):
             path_to_coords = f"../gui/assets/{self.current_country}_coords.json"
             with open(path_to_coords, "r") as f:
                 self.region_coords = json.load(f)
-        else:
+        elif country == "EMPTY":
             self.map_label.setPixmap(QPixmap())
             self.country_name.setText("No country selected yet")
+            return
+        else:
+            QMessageBox.information(self, "Still in development", f"{country}'s simulation is still in development")
+            self.country_dropdown.setCurrentText("EMPTY")
+            return
 
 
     def load_starting_region(self, pos):
@@ -152,6 +158,9 @@ class RISKSimGUI(QWidget):
         self.selected_region = selected_region
 
     def next_day(self):
+        if not self.current_country or not self.is_starting_region:
+            QMessageBox.warning(self, "Selection Required", "Please select both a country and a starting region before advancing the simulation!")
+            return
         self.sim.next_day()
         self.nr_days_passed += 1
         self.print_days.setText(f"Days passed : {self.nr_days_passed}")

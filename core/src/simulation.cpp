@@ -78,6 +78,9 @@ void Simulation::read_Romania_counties(const string& counties_path, const string
         modifiers[0] = strdup(modifier1.c_str());
         modifiers[1] = strdup(modifier2.c_str());
         regions[nr_regions] = new Region(name, county_population, abbv, modifiers);
+        for(int m = 0; m < nr_modifiers; m++){
+            regions[nr_regions]->update(modifiers[m]);
+        }
         nr_regions++;
         }
 
@@ -135,7 +138,7 @@ void Simulation::update_starting_region(double recovery, double infection, doubl
 
 void Simulation::next_day(){
     int i, j, index;
-    double buffer[nr_regions + 1] = {0};
+    double *buffer = new double[nr_regions + 1]();
     for(i = 0; i <= nr_regions; i++){
         if(regions[i]->get_i() != 0){
             int nr_neighbors = regions[i]->get_nr_neighbors();
@@ -158,11 +161,9 @@ void Simulation::next_day(){
             regions[i]->add_m_rate(buffer[i] * 0.05);
             buffer[i] = 0;
         }
-        for(j = 0; j < nr_modifiers; j++){
-            regions[i]->update(regions[i]->get_modifier(j));
-        }
         regions[i]->update("end");
     }
+    delete[] buffer;
 }
 
 string Simulation::get_stats(const string& region_name){
