@@ -12,9 +12,9 @@ Each region and country tracks four core population states based on an SIR-style
 ## 2. Dynamic Population Calculations
 During each update cycle, population transitions occur according to percentage-based updates:
 
-* **Infection Calculation**: Converts $S \times \text{infection\_rate} / 100$ people from Susceptible to Infected.
-* **Recovery Calculation**: Converts $I \times \text{recovery\_rate} / 100$ people from Infected to Recovered.
-* **Mortality Calculation**: Converts $I \times \text{mortality\_rate} / 100$ people from Infected to Killed.
+* **Infection Calculation**: Converts `S * infection_rate / 100` people from Susceptible to Infected.
+* **Recovery Calculation**: Converts `I * recovery_rate / 100` people from Recovered to Infected.
+* **Mortality Calculation**: Converts `I * mortality_rate / 100` people from Infected to Killed.
 
 ---
 
@@ -38,10 +38,10 @@ Regions have modifiers that dynamically adjust their infection rate (`i_rate`) a
 ## 4. Transmission & Daily Simulation Step (`next_day`)
 When advancing the simulation step (`next_day`), the disease spreads across borders using neighbor links:
 
-1. **Border Spread Calculation**: For every region with infected individuals ($I > 0$), a transmission buffer is accumulated for each adjacent neighbor:
-   $$\text{Buffer Share} = \frac{\text{i\_rate} \times 0.02}{\text{total neighbors}}$$
+1. **Border Spread Calculation**: For every region with infected individuals (`I > 0`), a transmission buffer is accumulated for each adjacent neighbor:
+   `Buffer Share = (i_rate * 0.02) / total_neighbors`
 2. **Rate Adjustments**: For any neighboring region receiving a positive buffer:
-   * Infection rate increases: $\text{i\_rate} += \text{buffer}$
-   * Recovery rate increases: $\text{r\_rate} += \text{buffer} \times 0.1$
-   * Mortality rate increases: $\text{m\_rate} += \text{buffer} \times 0.05$
+   * Infection rate increases: `i_rate += buffer`
+   * Recovery rate increases: `r_rate += buffer * 0.1`
+   * Mortality rate increases: `m_rate += buffer * 0.05`
 3. **Daily State Update (`update("end")`)**: All regions calculate new infection, recovery, and mortality population totals.
