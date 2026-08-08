@@ -30,5 +30,5 @@
 
 ## Build & Execution
 
-chmod + x cmake_script.sh
-./cmake_script.sh
+* chmod + x cmake_script.sh
+* ./cmake_script.sh
